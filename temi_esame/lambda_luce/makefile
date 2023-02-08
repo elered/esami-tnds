@@ -1,8 +1,0 @@
-LIBS:=`root-config --libs`
-INCS:=`root-config --cflags`
-
-main : main.cc luce.cc randomgen.h luce.h
-	g++ -o main main.cc luce.cc ${INCS} ${LIBS} 
-
-clean:
-	rm main.cc
