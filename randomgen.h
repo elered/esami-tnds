@@ -42,7 +42,7 @@ class RandomGen{
      
      double GausAR(double mean, double sigma) {
 
-      double s = Rand(); //uso la rand perchè tanto è tra 0 e 1
+      double s = Rand();
 
       double t = Rand();
 
@@ -71,6 +71,82 @@ class RandomGen{
   private:
      unsigned int m_a, m_c, m_m;
      unsigned int m_seed;
+};
+
+class funzionebase {
+
+  public:
+
+  virtual double eval (double) const = 0;
+
+  virtual ~funzionebase () {}
+
+};
+
+class seno : public funzionebase {
+    
+    public:
+
+    double eval(double x) const {
+
+        return sin(x);
+    }
+};
+
+class integralMC {
+    
+    public:
+
+    integralMC(unsigned int seed) : m_myrand(seed) {};
+    ~integralMC() {;} ;
+
+    double integralehom(double xmin, double xmax, double fmax, funzionebase &f, int punti) {
+
+        m_punti = punti;
+
+        double nhit = 0;
+
+        double x = 0;
+
+        double y = 0;
+
+        for(int i=0; i<m_punti; i++) {
+
+            x = m_myrand.Unif(xmin,xmax);
+
+            y = m_myrand.Unif(0,fmax);
+
+            if(y<f.eval(x)) {
+
+            nhit ++;
+
+            }
+        }
+
+        return (xmax-xmin)*fmax*(nhit/m_punti);
+
+    };
+
+    double integraleave(double xmin, double xmax, funzionebase &f, int punti) {
+
+        m_punti = punti;
+
+        double sum = 0;
+
+        for(int i = 0; i<m_punti; i++) {
+            
+            double x = m_myrand.Unif(xmin,xmax);
+
+            sum += f.eval(x);
+        }
+
+        return (xmax-xmin)*(sum/m_punti);
+    };
+
+    private:
+
+    RandomGen m_myrand;
+    unsigned int m_punti;
 };
 
 #endif
