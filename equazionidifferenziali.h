@@ -269,7 +269,7 @@ class puntomat: public FunzioneVettorialeBase{
 		double m_alpha;
 };
 
-//ERRORE RUNTIME RUNGEKUTTA
+//ERRORE RUNTIME RUNGEKUTTA (RICORDATI CHE HAI FATTO IL RELATIVO)
 
 double Passo_prec(double t, const vector<double> &x, double prec, double h, const FunzioneVettorialeBase &f) {
     unsigned int N = 2;
