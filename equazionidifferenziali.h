@@ -290,6 +290,29 @@ double Passo_prec(double t, const vector<double> &x, double prec, double h, cons
 
   }
 
+//ALTRO ERRORE RUNGEKUTTA
+
+double errorrunge(double t, double tmax, vector<double> &x, double h, const FunzioneVettorialeBase &f) {
+
+    rungekutta myk;
+    vector <double> In (x.size());
+    vector <double> I2n (x.size());
+    for(int i = 0; i<x.size(); i++) {
+      I2n = x;
+    }
+    double dist = 0;
+
+    while(t <= tmax){
+      In = I2n;
+      I2n = myk.Passo(t,I2n,h,f);
+      t = t+h;
+      dist = Distanza(In,I2n);
+    }
+
+    return dist;
+    
+};
+
 
 
 #endif 
