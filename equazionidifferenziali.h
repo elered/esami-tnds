@@ -313,6 +313,28 @@ double errorrunge(double t, double tmax, vector<double> &x, double h, const Funz
     
 };
 
+//PASSO DA PRECISIONE FISSATA
+
+  double PassoPrec(double t, const vector<double> &x, double prec, const FunzioneVettorialeBase &f) {
+
+    double nstep = 2;
+    vector <double> In (x.size());
+    vector <double> I2n (x.size());
+		double h = 0;
+    I2n = x;
+
+    do{
+      In = I2n;
+      nstep *= 2;
+      h = (t-0)/nstep;
+      I2n = Passo(t,x,h,f);
+    }while(prec < distanza(In,I2n));
+    //Con la norma trovo l'errore relativo
+
+    return h;
+    
+  };
+
 
 
 #endif 
